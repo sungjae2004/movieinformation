@@ -22,8 +22,8 @@
 	
 	HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 	if (conn != null) {
-	conn.setConnectTimeout(10000); //서버에 연결되는 Timeout 시간 설정
-	conn.setUseCaches(false);// InputStream 읽어 오는 Timeout 시간 설정
+	conn.setConnectTimeout(10000);
+	conn.setUseCaches(false);
 	if (conn.getResponseCode() ==
 	HttpURLConnection.HTTP_OK) {
 		BufferedReader br = new BufferedReader(new InputStreamReader((InputStream)conn.getContent(), "UTF-8"));
@@ -90,67 +90,10 @@
 		out.println("</tr>");
 	} 
 	out.println("</table>");
-	
-	String xml = "";
-	try {
-		url = new URL("http://175.125.91.94/openapi/service/rest/meta/KFApost");
-		conn = (HttpURLConnection) url.openConnection();
-		sb = new StringBuilder();
-		if (conn != null) {
-			conn.setConnectTimeout(10000);
-			conn.setUseCaches(false);
-			
-			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-				BufferedReader br = new BufferedReader(new InputStreamReader((InputStream)conn.getContent(), "UTF-8"));
-				while (true) {
-					String line = br.readLine();
-					if (line == null)
-						break;
-					sb.append(line + '\n');
-				}
-				br.close();
-			}
-			conn.disconnect();
-			xml = sb.toString();
-		}
-	}
-	catch (Exception e) {
-		System.out.printf("SampleHTTPClient",	"Exception in processing response.", e);
-	}
-	String imageList = "";
-	if (xml != null) {
-		//DOM - XML 파싱을 위한 객체를 생성
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder documentBuilder = factory.newDocumentBuilder();
-		//문자열을 스트림으로 변환
-		InputStream is = new ByteArrayInputStream(xml.getBytes("utf-8"));
-		//파싱을 할 수 있도록 메모리에 모두 펼침
-		Document doc = documentBuilder.parse(is);
-		//루트를 찾아서 element에 저장
-		Element element = doc.getDocumentElement();
-		//tmx 태그를 전부 찾아서 items에 저장
-		NodeList items = element.getElementsByTagName("referenceIdentifier");
-		int n = items.getLength();
-		
-		
-		for (int i = 0; i < n; i++) {
-			Node item = items.item(i);
-			Node text = item.getFirstChild();
-			String itemValue = text.getNodeValue();
-			if(i == n-1){
-				imageList = imageList + itemValue;
-			}else{
-				imageList = imageList + itemValue + ",";
-			}
-		}
-	}
+
 	%>
 	</table>
 	</div>
-	
-	<p align='center'>
-		<img id='img' width="200" height="200" />
-	</p>
 	
 </body>
 

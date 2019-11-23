@@ -123,7 +123,6 @@ vertical-align: middle;
 					<li><a class="submenuLink" href="boardlist.jsp"
 						target='ifrm_content'>영화 감상평 보기</a></li>
 				</ul></li>
-			<li>|</li>
 		</ul>
 	</nav>
 </div>
