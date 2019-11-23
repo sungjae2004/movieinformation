@@ -16,8 +16,7 @@
 	if (conn != null) {
 	conn.setConnectTimeout(10000);
 	conn.setUseCaches(false);
-	if (conn.getResponseCode() ==
-	HttpURLConnection.HTTP_OK) {
+	if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
 	BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
 
 	while (true) {
